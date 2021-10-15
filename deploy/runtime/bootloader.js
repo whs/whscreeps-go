@@ -19,11 +19,11 @@ const go = new Go();
 let instance = new WebAssembly.Instance(wasm, go.importObject);
 console.log('Wasm ready');
 go.run(instance);
-//
-// module.exports.loop = function() {
-//     if(typeof global.loop === 'undefined') {
-//         console.log('Skipping tick - code not loaded');
-//         return;
-//     }
-//     global.loop();
-// }
+
+module.exports.loop = function() {
+    if(typeof global.loop === 'undefined') {
+        console.log('Skipping tick - code not loaded');
+        return;
+    }
+    global.loop();
+}
