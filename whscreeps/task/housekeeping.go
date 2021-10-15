@@ -25,10 +25,6 @@ func (h Housekeeping) Execute(ctx context.Context) {
 	root := store.CtxStore(ctx)
 	root.GC()
 
-	if ctx.Err() == context.DeadlineExceeded {
-		return
-	}
-
 	creeps := object.GetCreepNames()
 	for _, name := range creeps {
 		_, ok := root.Creeps[name]

@@ -13,8 +13,12 @@ type Mutex struct {
 	Token *LockToken
 }
 
+func (l *Mutex) ProbeLock() bool {
+	return l.Token != nil
+}
+
 func (l *Mutex) Lock() LockToken {
-	if l.Token != nil {
+	if l.ProbeLock() {
 		panic("Lock() called on locked object")
 	}
 
@@ -24,7 +28,7 @@ func (l *Mutex) Lock() LockToken {
 }
 
 func (l *Mutex) IsMyLock(token LockToken) bool {
-	if l.Token == nil {
+	if !l.ProbeLock() {
 		return false
 	}
 	return *l.Token == token

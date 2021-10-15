@@ -12,9 +12,6 @@ import (
 func Loop() {
 	defer log.Debug().Msg("Loop ended")
 
-	ctx, done := os.GetDeadline(context.Background())
-	defer done()
-
 	memSegment := memory.GetSegment(0)
 	var mem store.RootStore
 	err := memory.Get(memSegment, &mem)
@@ -33,6 +30,6 @@ func Loop() {
 
 	scheduler.ScheduleTransient(task.Main{}, os.PriorityNormal)
 
-	ctx = store.WithStore(ctx, &mem)
+	ctx := store.WithStore(context.Background(), &mem)
 	scheduler.Run(ctx)
 }

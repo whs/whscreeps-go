@@ -140,10 +140,9 @@ func (s *Scheduler) Run(ctx context.Context) {
 	ch := ctx.Done()
 	subCtx := context.WithValue(ctx, schedulerContextValue, s)
 	for {
-		_, stop := <-ch
-		if stop {
-			break
-		}
+		//if ctx.Err() != nil {
+		//	break
+		//}
 		if len(s.queue) == 0 {
 			break
 		}

@@ -27,7 +27,7 @@ func (m Main) Execute(ctx context.Context) {
 	scheduler := os.CtxScheduler(ctx)
 
 	for name, creepData := range root.Creeps {
-		if creepData.Token != nil {
+		if creepData.ProbeLock() {
 			continue
 		}
 		creep, err := object.GetCreep(name)
