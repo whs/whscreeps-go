@@ -1,5 +1,12 @@
 {
   "name": "whscreeps",
   "version": "0.0.0",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "fast-text-encoding": "^1.0.3",
+    "polyfill-crypto.getrandomvalues": "^1.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.13.6"
+  }
 }

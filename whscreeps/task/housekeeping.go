@@ -32,7 +32,7 @@ func (h Housekeeping) Execute(ctx context.Context) {
 			continue
 		}
 		root.Creeps[name] = &store.CreepData{}
-		logger.Trace().Msgf("Created store entry for %d", name)
+		logger.Trace().Msgf("Created store entry for '%s'", name)
 	}
 
 	root.LastHousekeeping = game.GetTime()

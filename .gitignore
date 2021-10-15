@@ -1,3 +1,4 @@
 cmd/deploy/deploy
 node_modules/
 main.wasm
+deploy/runtime/main.js

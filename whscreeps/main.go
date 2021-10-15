@@ -4,13 +4,14 @@ import (
 	"context"
 	"github.com/rs/zerolog/log"
 	"github.com/whs/whscreeps/os"
+	"github.com/whs/whscreeps/screeps/game"
 	"github.com/whs/whscreeps/screeps/memory"
 	"github.com/whs/whscreeps/whscreeps/store"
 	"github.com/whs/whscreeps/whscreeps/task"
 )
 
 func Loop() {
-	defer log.Debug().Msg("Loop ended")
+	defer log.Debug().Msgf("Loop ended. CPU time used: %.4f", game.GetCPUUsed())
 
 	memSegment := memory.GetSegment(0)
 	var mem store.RootStore

@@ -137,15 +137,11 @@ func (s *Scheduler) CopyTo(mem memory.Memory) {
 }
 
 func (s *Scheduler) Run(ctx context.Context) {
-	ch := ctx.Done()
 	subCtx := context.WithValue(ctx, schedulerContextValue, s)
-	for {
+	for len(s.queue) != 0 {
 		//if ctx.Err() != nil {
 		//	break
 		//}
-		if len(s.queue) == 0 {
-			break
-		}
 		task := heap.Pop(&s.queue).(scheduledTask)
 		taskLogger := log.With().Object("task", &task).Logger()
 		taskLogger.Trace().Msg("Executing task")
