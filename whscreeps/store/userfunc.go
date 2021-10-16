@@ -13,7 +13,7 @@ func init() {
 func resetCreepState(this js.Value, args []js.Value) interface{} {
 	memSegment := memory.GetSegment(0)
 	var mem RootStore
-	err := memory.Get(memSegment, &mem)
+	err := memory.GetJSON(memSegment, &mem)
 	if err != nil {
 		log.Error().Err(err).Msg("Error parsing memory")
 		return nil

@@ -3,7 +3,6 @@ package os
 import (
 	"container/heap"
 	"context"
-	"encoding/gob"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"github.com/whs/whscreeps/screeps/memory"
@@ -18,10 +17,6 @@ const (
 	PriorityVeryLow    = 40_000
 	PriorityBackground = 50_000
 )
-
-func init() {
-	gob.Register(storedQueue{})
-}
 
 type scheduledTask struct {
 	Task     Task
@@ -83,7 +78,7 @@ func GetScheduler(mem memory.Memory) *Scheduler {
 
 func (s *Scheduler) load() {
 	var stored storedQueue
-	err := memory.Get(s.mem, &stored)
+	err := memory.GetJSON(s.mem, &stored)
 	if err != nil {
 		log.Warn().Err(err).Msg("fail to load scheduled tasks")
 		s.queue = make(heapScheduledList, 0)
@@ -127,7 +122,7 @@ func (s *Scheduler) Save() {
 
 // CopyTo save this scheduler state to the memory location provided
 func (s *Scheduler) CopyTo(mem memory.Memory) {
-	err := memory.Set(mem, storedQueue{
+	err := memory.SetJSON(mem, storedQueue{
 		Queue:     &s.queue,
 		NextQueue: &s.nextQueue,
 	})

@@ -15,13 +15,13 @@ func Loop() {
 
 	memSegment := memory.GetSegment(0)
 	var mem store.RootStore
-	err := memory.Get(memSegment, &mem)
+	err := memory.GetJSON(memSegment, &mem)
 	if err != nil {
 		log.Error().Err(err).Msg("Error parsing memory")
 	}
 	mem.Init()
 	defer func() {
-		err := memory.Set(memSegment, mem)
+		err := memory.SetJSON(memSegment, mem)
 		if err != nil {
 			log.Fatal().Err(err).Msg("Fail to set memory")
 		}

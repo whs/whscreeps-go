@@ -1,8 +1,6 @@
 package game
 
-import (
-	"github.com/teamortix/golang-wasm/wasm"
-)
+import "github.com/whs/whscreeps/wasm"
 
 type GCL struct {
 	Level         int `wasm:"level"`

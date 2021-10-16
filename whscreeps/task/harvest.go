@@ -2,7 +2,6 @@ package task
 
 import (
 	"context"
-	"encoding/gob"
 	"fmt"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
@@ -11,10 +10,6 @@ import (
 	"github.com/whs/whscreeps/screeps/types"
 	"github.com/whs/whscreeps/whscreeps/store"
 )
-
-func init() {
-	gob.Register(&Harvest{})
-}
 
 type Harvest struct {
 	CreepID       string

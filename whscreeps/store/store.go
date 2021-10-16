@@ -2,7 +2,6 @@ package store
 
 import (
 	"context"
-	"encoding/gob"
 	"github.com/rs/zerolog/log"
 	"github.com/whs/whscreeps/screeps/object"
 	"github.com/whs/whscreeps/whscreeps/utils"
@@ -36,10 +35,6 @@ func (r *RootStore) gcCreeps() {
 
 type CreepData struct {
 	Mutex
-}
-
-func init() {
-	gob.Register(RootStore{})
 }
 
 type storeContextKey int

@@ -1,9 +1,7 @@
 package memory
 
 import (
-	"bytes"
 	"encoding/ascii85"
-	"encoding/gob"
 	"encoding/json"
 	"fmt"
 )
@@ -33,28 +31,6 @@ func SetBytes85(m Memory, v []byte) error {
 	str := string(encoded[:length])
 	m.Set(str)
 	return nil
-}
-
-// GetGob retrieve the gob-encoded value from m
-func Get(m Memory, v interface{}) error {
-	data, err := GetBytes85(m)
-	if err != nil {
-		return err
-	}
-
-	err = gob.NewDecoder(bytes.NewBuffer(data)).Decode(v)
-	return err
-}
-
-// SetGob serialize the given value using gob and store it in m
-func Set(m Memory, val interface{}) error {
-	var buf bytes.Buffer
-	err := gob.NewEncoder(&buf).Encode(val)
-	if err != nil {
-		return err
-	}
-
-	return SetBytes85(m, buf.Bytes())
 }
 
 // GetJSON retrieve the data stored in m into v

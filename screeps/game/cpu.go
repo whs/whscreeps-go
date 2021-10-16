@@ -1,8 +1,6 @@
 package game
 
-import (
-	"github.com/teamortix/golang-wasm/wasm"
-)
+import "github.com/whs/whscreeps/wasm"
 
 type CPU struct {
 	Limit        *int            `wasm:"limit"`

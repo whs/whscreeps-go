@@ -2,16 +2,11 @@ package task
 
 import (
 	"context"
-	"encoding/gob"
 	"github.com/rs/zerolog"
 	"github.com/whs/whscreeps/screeps/game"
 	"github.com/whs/whscreeps/screeps/object"
 	"github.com/whs/whscreeps/whscreeps/store"
 )
-
-func init() {
-	gob.Register(Housekeeping{})
-}
 
 type Housekeeping struct {
 }

@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"path"
+	"strconv"
 	"strings"
 )
 
@@ -36,6 +37,7 @@ func main() {
 	password := flag.String("password", "", "")
 	token := flag.String("token", "", "")
 	branch := flag.String("branch", "sim", "Branch to upload to")
+	wasmAsJs := flag.Bool("wasm-as-js", false, "Encode WASM as JS file")
 	flag.Parse()
 
 	body := codeBody{
@@ -53,7 +55,11 @@ func main() {
 			moduleName = strings.Replace(moduleName, path.Ext(moduleName), "", 1)
 			body.Modules[moduleName] = string(content)
 		} else {
-			body.Modules[moduleName] = binaryModule(content)
+			if *wasmAsJs {
+				body.Modules[moduleName] = encodeBinaryAsJs(content)
+			} else {
+				body.Modules[moduleName] = binaryModule(content)
+			}
 		}
 	}
 
@@ -80,4 +86,24 @@ func main() {
 	fmt.Println(out.Status)
 	respBody, _ := ioutil.ReadAll(out.Body)
 	fmt.Println(string(respBody))
+}
+
+func encodeBinaryAsJs(content []byte) string {
+	var buf bytes.Buffer
+
+	buf.WriteString("module.exports=Uint8Array.from([")
+
+	first := true
+	for _, b := range content {
+		if first {
+			first = false
+		} else {
+			buf.WriteRune(',')
+		}
+		buf.WriteString(strconv.FormatUint(uint64(b), 10))
+	}
+
+	buf.WriteString("])")
+
+	return buf.String()
 }

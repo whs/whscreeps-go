@@ -1,9 +1,9 @@
 package object
 
 import (
-	"github.com/teamortix/golang-wasm/wasm"
 	"github.com/whs/whscreeps/screeps/types"
 	"github.com/whs/whscreeps/screeps/utils"
+	"github.com/whs/whscreeps/wasm"
 	"syscall/js"
 )
 

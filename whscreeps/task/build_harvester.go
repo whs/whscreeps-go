@@ -2,17 +2,12 @@ package task
 
 import (
 	"context"
-	"encoding/gob"
 	"fmt"
 	"github.com/rs/zerolog"
 	"github.com/whs/whscreeps/screeps/game"
 	"github.com/whs/whscreeps/screeps/object"
 	"github.com/whs/whscreeps/screeps/types"
 )
-
-func init() {
-	gob.Register(BuildHarvester{})
-}
 
 type BuildHarvester struct {
 	Spawn string

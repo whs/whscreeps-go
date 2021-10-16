@@ -14,8 +14,3 @@ func ObjectKeys(obj js.Value) []string {
 	}
 	return out
 }
-
-func NewObject() *js.Value {
-	val := object.New()
-	return &val
-}
